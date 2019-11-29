@@ -12,9 +12,11 @@ import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import sis.model.Employee;
 
+@Component
 public class NotificationListener extends JobExecutionListenerSupport {
 
 	private static final Logger LOGGER = LogManager
@@ -33,7 +35,7 @@ public class NotificationListener extends JobExecutionListenerSupport {
             LOGGER.info("!!! JOB FINISHED! Time to verify the results");
             List<Employee> employeeList = jdbcTemplate.query("SELECT * FROM employee", new employeeRowMapper());         
             for(Employee employee: employeeList) {
-            	LOGGER.info("Found <" + employee + "> in the database.");
+            	LOGGER.info("Found <" + employee.toString() + "> in the database.");
             }
         }
     }
