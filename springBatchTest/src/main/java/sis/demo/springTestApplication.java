@@ -14,10 +14,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import sis.config.batchConfig;
+import sis.model.Employee;
+import sis.service.EmployeeService;
+import sis.service.EmployeeServiceImpl;
 
 @SpringBootApplication
 public class springTestApplication {
-	
+
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(
 				batchConfig.class);
@@ -25,6 +28,10 @@ public class springTestApplication {
 		Job job = context.getBean("listEmployeesJob", Job.class);
 		JobParameters jobParameters = new JobParametersBuilder()
 				.toJobParameters();
+		EmployeeService employeeService = context.getBean(EmployeeServiceImpl.class);
+		Employee emp = new Employee("Nabil", "Jalmous", 37, 120000);
+		employeeService.listAllUsers();
+		employeeService.insertEmployee(emp);
 		try {
 			@SuppressWarnings("unused")
 			JobExecution jobExecution = jobLauncher.run(job, jobParameters);

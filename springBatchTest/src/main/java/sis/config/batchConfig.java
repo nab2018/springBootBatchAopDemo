@@ -20,21 +20,27 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import sis.model.Employee;
+import sis.service.EmployeeServiceImpl;
 
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @EnableBatchProcessing
+@EnableAspectJAutoProxy
 public class batchConfig {
 	@Autowired
 	private JobBuilderFactory jobFactory;
 	@Autowired
 	private StepBuilderFactory stepFactory;
-
+	@Autowired
+	private EmployeeServiceImpl employeeService;
+	
+	@Autowired
 	public batchConfig() {
 		BasicConfigurator.configure();
 	}
@@ -112,9 +118,9 @@ public class batchConfig {
 	public NotificationListener notificationListener() {
 		return new NotificationListener(jdbcTemplate(dataSource()));
 	}
-
-	@Bean
-	public TracePerformanceAspect tracePerformanceAspect() {
+	
+	@Bean 
+	public TracePerformanceAspect tracePerformanceAspect(){
 		return new TracePerformanceAspect();
 	}
 }

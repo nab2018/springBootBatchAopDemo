@@ -42,7 +42,6 @@ public class NotificationListener extends JobExecutionListenerSupport {
 
 	class employeeRowMapper implements RowMapper<Employee> {
 
-		@Override
 		public Employee mapRow(ResultSet rs, int rowNr) throws SQLException {
 			Employee employee = new Employee(rs.getString("employeeFirstName"),
 					rs.getString("employeeLastName"), rs.getInt("employeeAge"),
