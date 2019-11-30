@@ -24,27 +24,27 @@ public class springTestApplication {
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(
 				batchConfig.class);
-		JobLauncher jobLauncher = context.getBean(JobLauncher.class);
-		Job job = context.getBean("listEmployeesJob", Job.class);
-		JobParameters jobParameters = new JobParametersBuilder()
-				.toJobParameters();
+//		JobLauncher jobLauncher = context.getBean(JobLauncher.class);
+//		Job job = context.getBean("listEmployeesJob", Job.class);
+//		JobParameters jobParameters = new JobParametersBuilder()
+//				.toJobParameters();
 		EmployeeService employeeService = context.getBean(EmployeeServiceImpl.class);
 		Employee emp = new Employee("Nabil", "Jalmous", 37, 120000);
 		employeeService.listAllUsers();
 		employeeService.insertEmployee(emp);
-		try {
-			@SuppressWarnings("unused")
-			JobExecution jobExecution = jobLauncher.run(job, jobParameters);
-		} catch (JobExecutionAlreadyRunningException e) {
-			e.printStackTrace();
-		} catch (JobRestartException e) {
-			e.printStackTrace();
-		} catch (JobInstanceAlreadyCompleteException e) {
-			e.printStackTrace();
-		} catch (JobParametersInvalidException e) {
-			e.printStackTrace();
-		} finally {
-			((AnnotationConfigApplicationContext) context).close();
-		}
+//		try {
+////			JobExecution jobExecution = jobLauncher.run(job, jobParameters);
+//		} catch (JobExecutionAlreadyRunningException e) {
+//			e.printStackTrace();
+//		} catch (JobRestartException e) {
+//			e.printStackTrace();
+//		} catch (JobInstanceAlreadyCompleteException e) {
+//			e.printStackTrace();
+//		} catch (JobParametersInvalidException e) {
+//			e.printStackTrace();
+//		} finally {
+//			((AnnotationConfigApplicationContext) context).close();
+//		}
+		((AnnotationConfigApplicationContext) context).close();
 	}
 }
