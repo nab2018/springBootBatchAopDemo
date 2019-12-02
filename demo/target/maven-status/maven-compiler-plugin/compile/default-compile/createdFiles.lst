@@ -1,0 +1,7 @@
+com\batch\App.class
+com\batch\AfterAopAspect.class
+com\batch\business\Business2.class
+com\batch\dao\Dao1.class
+com\batch\UserAccessAspect.class
+com\batch\business\Business1.class
+com\batch\dao\Dao2.class
