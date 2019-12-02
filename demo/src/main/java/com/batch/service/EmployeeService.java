@@ -2,7 +2,7 @@ package com.batch.service;
 
 import java.util.List;
 
-import com.batch.dao.Employee;
+import com.batch.model.Employee;
 
 public interface EmployeeService {
 

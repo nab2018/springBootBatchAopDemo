@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.batch.dao.Employee;
+import com.batch.model.Employee;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

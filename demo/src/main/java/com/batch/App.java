@@ -1,7 +1,7 @@
 package com.batch;
 
 import com.batch.config.batchConfig;
-import com.batch.dao.Employee;
+import com.batch.model.Employee;
 import com.batch.service.EmployeeService;
 
 import org.springframework.batch.core.Job;
@@ -14,11 +14,14 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableJpaRepositories
+@ComponentScan("com.batch")
 public class App {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(batchConfig.class);

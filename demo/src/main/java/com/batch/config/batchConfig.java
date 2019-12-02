@@ -2,10 +2,7 @@ package com.batch.config;
 
 import javax.sql.DataSource;
 
-import com.batch.business.EmployeeServiceImpl;
-import com.batch.dao.Employee;
-import com.batch.config.NotificationListener;
-import com.zaxxer.hikari.HikariDataSource;
+import com.batch.model.Employee;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -24,20 +21,17 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 @EnableBatchProcessing
-@EnableAspectJAutoProxy
 public class batchConfig {
 	@Autowired
 	private JobBuilderFactory jobFactory;
 	@Autowired
 	private StepBuilderFactory stepFactory;
 	@Autowired
-	private EmployeeServiceImpl employeeService;
+	NotificationListener notificationListener;
 
 
 	@Bean
@@ -52,7 +46,7 @@ public class batchConfig {
 
 	@Bean
 	public Job listEmployeesJob(Step step1) {
-		return jobFactory.get("listEmployeesJob").listener(notificationListener()).start(step1).build();
+		return jobFactory.get("listEmployeesJob").listener(notificationListener).start(step1).build();
 	}
 
 	@Bean
@@ -92,25 +86,5 @@ public class batchConfig {
 				.sql("INSERT INTO employee(employeeFirstName, employeeLastName, employeeAge, employeeSalary) values(:employeeFirstName,:employeeLastName,:employeeAge,:employeeSalary)")
 				.dataSource(dataSource)
 				.build();
-	}
-
-	@Bean
-	public DataSource dataSource() {
-		HikariDataSource dataSource = new HikariDataSource();
-		dataSource.setDriverClassName("org.h2.Driver");
-		dataSource.setJdbcUrl("jdbc:h2:file:~/test");
-		dataSource.setUsername("sa");
-		dataSource.setPassword("");
-		return dataSource;
-	}
-
-	@Bean
-	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-		return new JdbcTemplate(dataSource);
-	}
-
-	@Bean
-	public NotificationListener notificationListener() {
-		return new NotificationListener(jdbcTemplate(dataSource()));
 	}
 }
