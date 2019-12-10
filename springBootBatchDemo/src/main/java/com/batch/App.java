@@ -13,12 +13,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.batch.config.batchConfig;
+import com.batch.config.BatchConfig;
 
 @SpringBootApplication
 public class App {
     public static void main(String[] args) {
-        ApplicationContext context = new AnnotationConfigApplicationContext(batchConfig.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(BatchConfig.class);
         JobLauncher jobLauncher = context.getBean(JobLauncher.class);
         Job job = context.getBean("listEmployeesJob", Job.class);
         JobParameters jobParameters = new JobParametersBuilder().toJobParameters();

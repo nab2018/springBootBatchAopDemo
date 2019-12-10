@@ -30,7 +30,7 @@ import com.batch.model.Employee;
 @EnableBatchProcessing
 @EnableAspectJAutoProxy
 @Import(DataSourceConfiguration.class)
-public class batchConfig {
+public class BatchConfig {
 	@Autowired
 	private JobBuilderFactory jobFactory;
 	@Autowired
@@ -93,7 +93,7 @@ public class batchConfig {
 				.sql("insert into employee(employeeFirstName, employeeLastName, employeeAge, employeeSalary) values(:employeeFirstName,:employeeLastName,:employeeAge,:employeeSalary)")
 				.build();
 	}
-	
+
 	public NotificationListener notificationListener() {
 		return new NotificationListener(jdbcTemplate);
 	}
