@@ -19,6 +19,7 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,6 +28,7 @@ import com.batch.model.Employee;
 
 @Configuration
 @EnableBatchProcessing
+@EnableAspectJAutoProxy
 @Import(DataSourceConfiguration.class)
 public class batchConfig {
 	@Autowired

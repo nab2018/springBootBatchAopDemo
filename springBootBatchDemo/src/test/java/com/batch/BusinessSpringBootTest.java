@@ -2,8 +2,6 @@ package com.batch;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -11,11 +9,45 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest
 public class BusinessSpringBootTest {
 
-	@SuppressWarnings("unused")
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+//	private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+//	@Autowired
+//	private JdbcTemplate jdbcTemplate;
+//	@Autowired
+//	private NotificationListener notificationListener;
+//	@Autowired
+//	private EmployeeServiceImpl employeeService;
+
+	// Conclusion: JdbcTemplate method is a lot faster than repository method
+	@Test
+	public void invokeJdbcTemplate() {
+//		LocalDateTime start = LocalDateTime.now();
+//		Date startDate = Date.from(start.atZone(ZoneId.systemDefault()).toInstant());
+//		List<Employee> employeeList = jdbcTemplate.query(
+//				"SELECT * FROM EMPLOYEE", new EmployeeRowMapper());
+//		for (Employee employee : employeeList) {
+//			LOGGER.info("Found <" + employee.toString()
+//					+ "> in the database.");
+//		}
+//		LocalDateTime end = LocalDateTime.now();
+//		Date endDate = Date.from(end.atZone(ZoneId.systemDefault()).toInstant());
+//		LOGGER.info("!!! DBJOB FINISHED! JpaExecutionTime using jdbcTemplate is: " +
+//					notificationListener.calculateExecutionTime(startDate, endDate)
+//					+ ".");
+	}
 
 	@Test
-	public void invokeStuff() {
-		
+	public void invokeJpaRepository() {
+//		LocalDateTime start = LocalDateTime.now();
+//		Date startDate = Date.from(start.atZone(ZoneId.systemDefault()).toInstant());
+//		List<Employee> employeeList = employeeService.listAllUsers();
+//		for (Employee employee : employeeList) {
+//			LOGGER.info("Found <" + employee.toString()
+//					+ "> in the database.");
+//		}
+//		LocalDateTime end = LocalDateTime.now();
+//		Date endDate = Date.from(end.atZone(ZoneId.systemDefault()).toInstant());
+//		LOGGER.info("!!! DBJOB FINISHED! JpaExecutionTime using jpaRepository is: " +
+//					notificationListener.calculateExecutionTime(startDate, endDate)
+//					+ ".");
 	}
 }

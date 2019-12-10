@@ -1,7 +1,5 @@
 package com.batch.config;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -15,7 +13,6 @@ import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.batch.model.Employee;
@@ -34,10 +31,10 @@ public class NotificationListener extends JobExecutionListenerSupport {
 		if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
 			String totalExecutionTime = calculateExecutionTime(
 					jobExecution.getCreateTime(), jobExecution.getEndTime());
-			LOGGER.info("!!! JOB FINISHED! JobExecutionTime is: " + totalExecutionTime
+			LOGGER.info("!!! JOB FINISHED! JobExecutionTime using jdbcTemplate is: " + totalExecutionTime
 					+ ". Time to verify the results:");
 			List<Employee> employeeList = jdbcTemplate.query(
-					"SELECT * FROM EMPLOYEE", new employeeRowMapper());
+					"SELECT * FROM EMPLOYEE", new EmployeeRowMapper());
 			for (Employee employee : employeeList) {
 				LOGGER.info("Found <" + employee.toString()
 						+ "> in the database.");
@@ -70,15 +67,5 @@ public class NotificationListener extends JobExecutionListenerSupport {
 				+ " days, " + hours + " hours, " + minutes + " minutes, "
 				+ seconds + " seconds, " + milliSeconds + " milliseconds.";
 		return executionDateTime;
-	}
-
-	class employeeRowMapper implements RowMapper<Employee> {
-		public Employee mapRow(ResultSet rs, int rowNr) throws SQLException {
-			Employee employee = new Employee(rs.getInt("employeeID"),
-					rs.getString("employeeFirstName"),
-					rs.getString("employeeLastName"), rs.getInt("employeeAge"),
-					rs.getInt("employeeSalary"));
-			return employee;
-		}
 	}
 }
