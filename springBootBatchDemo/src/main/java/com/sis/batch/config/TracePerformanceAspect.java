@@ -1,4 +1,4 @@
-package com.batch.config;
+package com.sis.batch.config;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -13,18 +13,7 @@ public class TracePerformanceAspect {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Around("execution(* com.batch.business.EmployeeServiceImpl.*(..)))")
-	public Object logTraceRepositoryPerformanceAspect(ProceedingJoinPoint joinPoint) throws Throwable {
-		String className = joinPoint.getSignature().getDeclaringType().getSimpleName();
-		String methodName = joinPoint.getSignature().getName();
-		long start = System.currentTimeMillis();
-		Object result = joinPoint.proceed();
-		long end = System.currentTimeMillis();
-		logger.info("Execution time of : " + className + "." + methodName + " :: " + (end - start) + " ms");
-		return result;
-	}
-
-	@Around("execution(* com.batch.config.batchConfig.*(..))")
+	@Around("execution(* com.sis.batch.config.BatchConfig.*(..))")
 	public Object logTraceJdbcTemplatePerformanceAspect(ProceedingJoinPoint joinPoint) throws Throwable {
 		String className = joinPoint.getSignature().getDeclaringType().getSimpleName();
 		String methodName = joinPoint.getSignature().getName();

@@ -1,4 +1,4 @@
-package com.batch.config;
+package com.sis.batch.config;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.batch.model.Employee;
+import com.sis.batch.model.Employee;
 
 @Component
 public class NotificationListener extends JobExecutionListenerSupport {
@@ -29,12 +29,25 @@ public class NotificationListener extends JobExecutionListenerSupport {
 	@Override
 	public void afterJob(final JobExecution jobExecution) {
 		if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
-			String totalExecutionTime = calculateExecutionTime(
-					jobExecution.getCreateTime(), jobExecution.getEndTime());
+			String totalExecutionTime = calculateExecutionTime(jobExecution.getCreateTime(), jobExecution.getEndTime());
 			LOGGER.info("!!! JOB FINISHED! JobExecutionTime using jdbcTemplate is: " + totalExecutionTime
 					+ ". Time to verify the results:");
-			List<Employee> employeeList = jdbcTemplate.query(
-					"SELECT * FROM EMPLOYEE", new EmployeeRowMapper());
+			List<Employee> employeeList = jdbcTemplate.query("SELECT * FROM EMPLOYEE", new EmployeeRowMapper());
+			for (Employee employee : employeeList) {
+				LOGGER.info("Found <" + employee.toString()
+						+ "> in the database.");
+			}
+		}
+			
+	}
+	
+	@Override
+	public void beforeJob(final JobExecution jobExecution) {
+		if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
+			String totalExecutionTime = calculateExecutionTime(jobExecution.getCreateTime(), jobExecution.getEndTime());
+			LOGGER.info("!!! JOB FINISHED! JobExecutionTime using jdbcTemplate is: " + totalExecutionTime
+					+ ". Time to verify the results:");
+			List<Employee> employeeList = jdbcTemplate.query("SELECT * FROM EMPLOYEE", new EmployeeRowMapper());
 			for (Employee employee : employeeList) {
 				LOGGER.info("Found <" + employee.toString()
 						+ "> in the database.");

@@ -1,4 +1,4 @@
-package com.batch.model;
+package com.sis.batch.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,8 +24,7 @@ public class Employee {
 
 	public Employee() {	}
 	
-	public Employee(int employeeID, String employeeFirstName, String employeeLastName, int employeeAge, int employeeSalary) {
-		this.employeeID = employeeID;
+	public Employee(String employeeFirstName, String employeeLastName, int employeeAge, int employeeSalary) {
 		this.employeeFirstName = employeeFirstName;
 		this.employeeLastName = employeeLastName;
 		this.employeeAge = employeeAge;

@@ -1,22 +1,19 @@
-package com.batch.business;
+package com.sis.batch.business;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.batch.dao.EmployeeRepository;
-import com.batch.model.Employee;
-import com.batch.service.EmployeeService;
+import com.sis.batch.dao.EmployeeRepository;
+import com.sis.batch.model.Employee;
+import com.sis.batch.service.EmployeeService;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
 	private List<Employee> employees = new ArrayList<Employee>();
 
 	public EmployeeServiceImpl(EmployeeRepository employeeRepository) {

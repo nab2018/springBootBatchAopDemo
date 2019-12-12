@@ -1,4 +1,4 @@
-package com.batch.config;
+package com.sis.batch.config;
 
 import javax.sql.DataSource;
 
@@ -7,6 +7,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
@@ -24,7 +25,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.batch.model.Employee;
+import com.sis.batch.model.Employee; 
 
 @Configuration
 @EnableBatchProcessing
@@ -51,8 +52,8 @@ public class BatchConfig {
 	}
 
 	@Bean
-	public Job listEmployeesJob(Step step1) {
-		return jobFactory.get("listEmployeesJob").listener(notificationListener()).start(step1).build();
+	public Job employeesJob(Step step1) {
+		return jobFactory.get("employeesJob").incrementer(new RunIdIncrementer()).listener(notificationListener()).start(step1).build();
 	}
 
 	@Bean
