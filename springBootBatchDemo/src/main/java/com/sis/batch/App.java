@@ -1,9 +1,3 @@
-package com.batch;
-
-import com.batch.config.batchConfig;
-import com.batch.model.Employee;
-import com.batch.service.EmployeeService;
-
 package com.sis.batch;
 
 import org.springframework.batch.core.Job;

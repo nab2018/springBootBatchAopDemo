@@ -1,17 +1,24 @@
-package com.batch.model;
+package com.sis.batch.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Employee {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "EMPLOYEEID")
 	private long employeeID;
+	@Column(name = "EMPLOYEEFIRSTNAME")
 	private String employeeFirstName;
+	@Column(name = "EMPLOYEELASTNAME")
 	private String employeeLastName;
+	@Column(name = "EMPLOYEEAGE")
 	private int employeeAge;
+	@Column(name = "EMPLOYEESALARY")
 	private int employeeSalary;
 
 	public Employee() {	}
